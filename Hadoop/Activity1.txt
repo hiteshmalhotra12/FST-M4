@@ -1,0 +1,13 @@
+root@7ec45d6c770a:/# ls
+bin   derby.log  etc   lib    media         mnt  proc  run   srv  tmp  var
+boot  dev        home  lib64  metastore_db  opt  root  sbin  sys  usr
+root@7ec45d6c770a:/# vim txtFile.txt
+root@7ec45d6c770a:/# vim csvFile.csv
+root@7ec45d6c770a:/# hdfs dfs -mkdir /user/root/textData
+root@7ec45d6c770a:/# hdfs dfs -put ./csvFile.csv /user/root/textData
+root@7ec45d6c770a:/# hdfs dfs -put ./txtFile.txt /user/root/textData
+root@7ec45d6c770a:/# hdfs dfs -stat "type:%F permissions:%a %u:%g size:%b name:%n" /user/root/textData/csvFile.csv
+type:regular file permissions:644 root:supergroup size:527 name:csvFile.csv
+root@7ec45d6c770a:/# hdfs dfs -stat "type:%F permissions:%a %u:%g size:%b name:%n" /user/root/textData/txtFile.txt
+type:regular file permissions:644 root:supergroup size:157 name:txtFile.txt
+root@7ec45d6c770a:/#  
