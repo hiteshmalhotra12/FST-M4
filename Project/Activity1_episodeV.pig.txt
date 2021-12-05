@@ -1,0 +1,8 @@
+-- Load input file from HDFS
+inputFile = LOAD 'hdfs:///user/root/episodeV_dialouges.txt' USING PigStorage('\t') AS ( name:chararray,line:chararray);
+-- Group data using the name column
+onlyDialouges = FILTER inputFile BY name != 'STAR WARS - EPISODE 5: THE EMPIRE STRIKES BACK';
+groupByName = GROUP onlyDialouges BY name;
+names = FOREACH groupByName GENERATE $0 as name, COUNT($1) as no_of_lines;
+nameordered = ORDER names BY no_of_lines DESC;
+STORE nameordered INTO 'episodeVoutput' USING PigStorage('\t');
